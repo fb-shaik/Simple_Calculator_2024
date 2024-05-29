@@ -28,7 +28,7 @@ jobs:
         run: mkdir -p ./testresources/simple_calculator_2024
       - name: copy compiled classes to testresources directory
         working-directory: ./src/simple_calculator_2024
-        run: cp -t  "../../test/simple_calculator_2024 " Calculator.class Simple_Calculator_2024.class
+        run: cp -t  "../../test/simple_calculator_2024" Calculator.class Simple_Calculator_2024.class
       - name: copy compiled Test classes to testresources directory
         working-directory: ./test/simple_calculator_2024
         run: cp -t  "../../testresources/simple_calculator_2024" CalculatorTest.class
