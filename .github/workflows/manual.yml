@@ -1,0 +1,39 @@
+name: Workflow
+'on':
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch: null
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: List contents
+        run: ls
+      - name: compile classes
+        working-directory: ./src
+        run: >-
+          javac -cp
+          "../testresources/junit-platform-console-standalone-1.6.0.jar"
+          "./simple_calculator_2024/Calculator.java" "./simple_calculator_2024/Simple_Calculator_2024.java"
+          "../test/simple_calculator_2024/CalculatorTest.java"
+      - name: List contents of src directory after compile
+        working-directory: ./src/simple_calculator_2024
+        run: ls
+      - name: create testresources/simple_calculator_2024 directory
+        run: mkdir -p ./testresources/simple_calculator_2024
+      - name: copy compiled classes to testresources directory
+        working-directory: ./src/simple_calculator_2024
+        run: cp -t  "../../test/simple_calculator_2024 " Calculator.class Simple_Calculator_2024.class
+      - name: copy compiled Test classes to testresources directory
+        working-directory: ./test/simple_calculator_2024
+        run: cp -t  "../../testresources/simple_calculator_2024" CalculatorTest.class
+      - name: List contents test package
+        working-directory: ./test/simple_calculator_2024
+        run: ls
+
+
